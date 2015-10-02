@@ -56,6 +56,34 @@ class User{
         }
     }
 
+    static public function getUserById($id){
+        $sql = "SELECT * FROM Users WHERE user_id = {$id}";
+        $result = self::$conn->query($sql);
+        if($result == true){
+            if($result->num_rows == 1){
+                $row = $result->fetch_assoc();
+                $loggedUser = new User($row['user_id'], $row['email'], $row['description']);
+                return $loggedUser;
+            }
+        }
+        return false;
+    }
+
+    static public function getAllUsers(){
+        $ret = [];
+        $sql = "SELECT * FROM Users";
+        $result = self::$conn->query($sql);
+        if($result == true){
+            if($result->num_rows > 0){
+                while($row = $result->fetch_assoc()){
+                    $loadedUser = new User($row['user_id'], $row['email'], $row['description']);
+                    $ret[] = $loadedUser;
+                }
+            }
+        }
+        return $ret;
+    }
+
     public function __construct($newId, $newEmail, $newDescription){
         $this->id = $newId;
         $this->email = $newEmail;
