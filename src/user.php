@@ -91,7 +91,7 @@ class User{
     }
 
     public function saveToDB(){
-        $sql = "UPDATE Users SET description={$this->description} WHERE user_id={$this->id}";
+        $sql = "UPDATE Users SET description='{$this->description}' WHERE user_id={$this->id}";
         $result = self::$conn->query($sql);
         return $result;
     }

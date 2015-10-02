@@ -19,5 +19,3 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     <input type="text" name="description" placeholder="Napisz cos o sobie">
     <input type="submit" value="Update">
 </form>
-
-///////////////UWAGAGAAAAAAA NIE DZIALA!!!!!!!!!!!!
