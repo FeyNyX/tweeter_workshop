@@ -18,7 +18,7 @@ if($_SERVER['REQUEST_METHOD'] == "GET"){
     $userIdToShow = $_GET['userId'];
     $userToShow = User::getUserById($userIdToShow);
     if($userToShow != false){
-        echo("<br>Stron usera {$userToShow->getEmail()}");
+        echo("<br>Strona usera {$userToShow->getEmail()}");
     } else {
         echo("<br>Nie ma takiego usera.");
     }
