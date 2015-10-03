@@ -18,7 +18,13 @@ if($_SERVER['REQUEST_METHOD'] == "GET"){
     $userIdToShow = $_GET['userId'];
     $userToShow = User::getUserById($userIdToShow);
     if($userToShow != false){
-        echo("<br>Strona usera {$userToShow->getEmail()}");
+        echo("<br>Strona usera {$userToShow->getEmail()}<br><br>");
+        $userTweets = User::getAllTweets($userIdToShow);
+        foreach($userTweets as $tweet){
+            echo("Tweet:<br>");
+            echo("Text: {$tweet->getText()}<br>");
+            echo("<a href='show_tweet.php?tweet_id={$tweet->getId()}'>Show Tweet.</a><br>");
+        }
     } else {
         echo("<br>Nie ma takiego usera.");
     }
