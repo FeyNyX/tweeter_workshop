@@ -63,6 +63,24 @@ class Tweet{
         return false;
     }
 
+    public static function loadAllCommentsOfTweet($id){
+        $sql = "SELECT * FROM Comments WHERE tweet_id = {$id} ORDER BY creation_date DESC";
+        $result = self::$conn->query($sql);
+        if($result == true){
+            if($result->num_rows > 0) {
+                while($row = $result->fetch_assoc()){
+                    $loadedComment = new Comment($row['comment_id'],
+                        $row['text'],
+                        $row['creation_date'],
+                        $row['user_id'],
+                        $row['tweet_id']);
+                    $ret[] = $loadedComment;
+                }
+                return $ret;
+            }
+        }
+    }
+
     public function __construct($newId, $newUserId, $newDate, $newText){
         $this->id = $newId;
         $this->userId = $newUserId;

@@ -100,10 +100,21 @@ class User{
     public function createTweet($tweetText){
         //TODO: After implementing tweet add functionality to create nae Tweet by user.
     }
-    public function getAllTweets(){
-        $ret = [];
-        //TODO: After implementing tweet add functionality to create nae Tweet by user to table.
-        return $ret;
+    public function getAllTweets($id){
+        $sql = "SELECT * FROM Tweets WHERE user_id = {$id} ORDER BY creation_date DESC";
+        $result = self::$conn->query($sql);
+        if($result == true){
+            if($result->num_rows > 0) {
+                while($row = $result->fetch_assoc()){
+                    $loadedTweet = new Tweet($row['tweet_id'],
+                        $row['user_id'],
+                        $row['creation_date'],
+                        $row['text']);
+                    $ret[] = $loadedTweet;
+                }
+                return $ret;
+            }
+        }
     }
     public function createComment($commentText){
         //TODO: After impl comment add functionality load all comments by user .

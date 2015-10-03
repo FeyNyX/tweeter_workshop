@@ -9,11 +9,16 @@ if(isset($_SESSION['user']) == false){
 $myUser = $_SESSION['user'];
 
 if($_SERVER['REQUEST_METHOD'] === 'POST'){
-    Tweet::createTweet($myUser->getId(), $_POST['tweet']);
+    if(isset($_POST['tweet'])) {
+        Tweet::createTweet($myUser->getId(), $_POST['tweet']);
+    }
+    if(isset($_POST['comment'])) {
+        Comment::createComment($myUser->getId(), $_POST['tweet_id'], $_POST['comment']);
+    }
 }
 
-echo("<br>Witaj {$myUser->getEmail()}");
-
+echo("<br>Witaj {$myUser->getEmail()}<br>");
+echo("<a href='logout.php'>Log out.</a>");
 
 ?>
 
@@ -25,9 +30,28 @@ echo("<br>Witaj {$myUser->getEmail()}");
 <?php
 $allTweets = Tweet::loadAllTweets();
 foreach($allTweets as $tweet){
-    echo("Tweet:<br>");
+    $tweetComments = Tweet::loadAllCommentsOfTweet($tweet->getId());
+    $tweetCreatorId = $tweet->getUserId();
+    $tweetCreator = User::getUserById($tweetCreatorId);
+    echo("Tweet by user {$tweetCreator->getEmail()}:<br>");
     echo("Text: {$tweet->getText()}<br>");
     echo("<a href='show_tweet.php?tweet_id={$tweet->getId()}'>Show Tweet.</a><br>");
+    if($tweetComments != false) {
+        foreach ($tweetComments as $comment) {
+            $commentCreatorId = $comment->getUserId();
+            $commentCreator = User::getUserById($commentCreatorId);
+            echo("Comment by user {$commentCreator->getEmail()}: {$comment->getText()}<br>");
+        }
+    }
+    echo("
+         <form action='main.php' method='post'>
+         <input type='text' name='comment' placeholder='comment text'>
+         <input type='hidden' name='tweet_id' value='{$tweet->getId()}'>
+         <input type='submit' value='Opublikuj komentarz'>
+         </form>
+         ");
+
+    echo("<br>");
 }
 
 $conn->close();

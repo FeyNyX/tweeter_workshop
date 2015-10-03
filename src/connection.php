@@ -1,5 +1,7 @@
 <?php
 require_once('user.php');
+require_once("tweet.php");
+require_once("comment.php");
 
 $userName = '';
 $host = '';
@@ -15,5 +17,7 @@ if($conn == false){
 }
 
 User::setConnection($conn);
+Tweet::setConnection($conn);
+Comment::setConnection($conn);
 
 ?>
