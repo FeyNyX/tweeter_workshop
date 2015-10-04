@@ -6,7 +6,7 @@ if(isset($_SESSION['user'])){
     header("location: main.php");
 }
 
-if($_SERVER['REQUEST_METHOD'] = 'POST'){
+if($_SERVER['REQUEST_METHOD'] == 'POST'){
     $newUser = User::register($_POST['email'], $_POST['password1'], $_POST['password2'], $_POST['description']);
     if($newUser != false){
         $_SESSION['user'] = $newUser;

@@ -48,7 +48,7 @@ class User{
         $sql = "INSERT INTO Users(email, password, description) VALUES ('$newEmail', '$hashedPassword', '$newDescription')";
         $result = self::$conn->query($sql);
         if($result == true){
-            $newUser = new User(self::$conn->mysqli_insert_id, $newEmail, $newDescription);
+            $newUser = new User(self::$conn->insert_id, $newEmail, $newDescription);
             return $newUser;
         } else {
             echo(self::$conn->error);
