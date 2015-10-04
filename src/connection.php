@@ -4,10 +4,10 @@ require_once("tweet.php");
 require_once("comment.php");
 require_once("message.php");
 
-$userName = 'root';
-$host = 'localhost';
-$dbName = 'tweeter';
-$password = 'coderslab';
+$userName = '';
+$host = '';
+$dbName = '';
+$password = '';
 
 $conn = new mysqli($host, $userName, $password, $dbName);
 
