@@ -2,11 +2,12 @@
 require_once('user.php');
 require_once("tweet.php");
 require_once("comment.php");
+require_once("message.php");
 
-$userName = '';
-$host = '';
-$dbName = '';
-$password = '';
+$userName = 'root';
+$host = 'localhost';
+$dbName = 'tweeter';
+$password = 'coderslab';
 
 $conn = new mysqli($host, $userName, $password, $dbName);
 
@@ -19,5 +20,5 @@ if($conn == false){
 User::setConnection($conn);
 Tweet::setConnection($conn);
 Comment::setConnection($conn);
-
+Message::setConnection($conn);
 ?>

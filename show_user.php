@@ -18,7 +18,15 @@ if($_SERVER['REQUEST_METHOD'] == "GET"){
     $userIdToShow = $_GET['userId'];
     $userToShow = User::getUserById($userIdToShow);
     if($userToShow != false){
-        echo("<br>Strona usera {$userToShow->getEmail()}<br><br>");
+        echo("<br>Strona usera {$userToShow->getEmail()}.<br><br>");
+        if($myUser->getId() != $userIdToShow){
+            echo("
+                <a href='send_message.php?userId={$userIdToShow}'><button>Send a message to {$userToShow->getEmail()}</button></a><br><br>
+                ");
+        }
+        if(isset($msg)){
+            echo ($msg . "<br><br>");
+        }
         $userTweets = User::getAllTweets($userIdToShow);
         foreach($userTweets as $tweet){
             echo("Tweet:<br>");

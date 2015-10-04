@@ -25,7 +25,7 @@ class Comment{
     }
 
     public function __construct($newId, $newText, $newDate, $newUserId, $newTweetId){
-        $this->id = $newId;
+        $this->commentId = $newId;
         $this->userId = $newUserId;
         $this->tweetId = $newTweetId;
         $this->setText($newText);
